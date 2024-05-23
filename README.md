@@ -136,5 +136,13 @@ by package machine
 /usr/local/lib/tinygo/src/examples/blinky2/blinky2.go:33:17: LED2 not declared
 by package machine
 
-``
+TEST 2
+mamadou@dugny:~$ cat /usr/local/lib/tinygo/src/examples/echo/echo.go
+// This is a echo console running on the device UART.
+// Connect using default baudrate for this hardware, 8-N-1 with your terminal
+program.
+package main
+
+
+``` 
 
