@@ -84,4 +84,57 @@ wasm
 tinygo flash -target=wioterminal -port /dev/ttyACM0 [le chemin de votre programme]
 ```
 
+- Testons 2 programmes blinky2.go et echo.go
+
+```
+TEST 1
+mamadou@dugny:~$ cat /usr/local/lib/tinygo/src/examples/blinky2/blinky2.go
+package main
+// This blinky is a bit more advanced than blink1, with two goroutines running
+// at the same time and blinking a different LED. The delay of led2 is slightly
+// less than half of led1, which would be hard to do without some sort of
+// concurrency.
+import (
+        "machine"
+        "time"
+)
+
+func main() {
+        go led1()
+        led2()
+}
+
+func led1() {
+        led := machine.LED1
+        led.Configure(machine.PinConfig{Mode: machine.PinOutput})
+        for {
+              println("+")
+              led.Low()
+              time.Sleep(time.Millisecond * 1000)
+        }  
+}
+println("-")
+led.High()
+time.Sleep(time.Millisecond * 1000)
+func led2() {
+          led := machine.LED2
+          led.Configure(machine.PinConfig{Mode: machine.PinOutput})
+          for {
+                    println(" +")
+                    led.Low()
+                    time.Sleep(time.Millisecond * 420)
+                    println(" -")
+                    led.High()
+                    time.Sleep(time.Millisecond * 420)
+          }
+}
+mamadou@dugny:~$ tinygo flash -target wioterminal -port /dev/ttyACM0
+/usr/local/lib/tinygo/src/examples/blinky2/blinky2.go
+# command-line-arguments
+/usr/local/lib/tinygo/src/examples/blinky2/blinky2.go:19:17: LED1 not declared
+by package machine
+/usr/local/lib/tinygo/src/examples/blinky2/blinky2.go:33:17: LED2 not declared
+by package machine
+
+``
 
