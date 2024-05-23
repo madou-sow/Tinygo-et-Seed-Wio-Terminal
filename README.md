@@ -243,3 +243,15 @@ avrdude: stk500_recv(): programmer is not responding
 avrdude: stk500_getsync() attempt 3 of 10: not in sync: resp=0x00
 
 ```
+#### Test avec le programme blinkblue.go sur la borne Wio T
+
+```
+1. Liste des modèles de microcontrôleurs wioterminal installés par tinygo
+mamadou@dugny:/usr/local/lib/tinygo/targets$ ls -1 wioterminal*
+wioterminal.json
+
+2. Compilation
+mamadou@dugny:~/big-data/cerin10102022/apprentissage/tinygo$ tinygo flash -
+target wioterminal -port /dev/ttyACM0 blinkblue/blinkblue.go
+La compilation se déroule correctement
+```
