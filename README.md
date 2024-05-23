@@ -80,7 +80,7 @@ wasm
 
 - Flashez votre programme TinyGo sur la carte en utilisant cette commande :
 
-``
+```
 tinygo flash -target=wioterminal -port /dev/ttyACM0 [le chemin de votre programme]
 ```
 
