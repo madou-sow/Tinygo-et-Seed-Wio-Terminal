@@ -37,12 +37,53 @@ L'image a été testée sur un Raspberry Pi Zero Rev 1.3 et Zero W Rev 1.3. Il p
 fonctionner sur le Pi A/A+ d'origine, mais n'a pas été testé. D'autres modèles n'ont pas la broche
 d'identification OTG et ne peuvent donc pas être utilisés en mode périphérique USB.
 
-### CLI (Command-Line Interface) ClignotantUne interface en ligne de commande ou ILC (traduction de CLI) est une interface homme-machine
+### CLI (Command-Line Interface) Clignotant
+Une interface en ligne de commande ou ILC (traduction de CLI) est une interface homme-machine
 dans laquelle la communication entre l'utilisateur et l'ordinateur s'effectue en mode texte :
 l'utilisateur tape une ligne de commande, c'est-à-dire du texte au clavier pour demander à
 l'ordinateur d'effectuer une opération.
 
 - Branchez votre Wio Terminal sur le port USB de votre ordinateur.
 - les différents exemples préinstallés avec le package tinygo_0.26.0_amd64.deb
+
+  ```
+mamadou@dugny:/usr/local/lib/tinygo/src/examples$ ls -1
+adc
+blinkm
+blinky1
+blinky2
+button
+button2
+can
+caninterrupt
+dac
+echo
+echo2
+gba-display
+hid-keyboard
+hid-mouse
+i2s
+mcp3008
+memstats
+microbit-blink
+pininterrupt
+pwm
+rand
+serial
+systick
+temp
+test
+uart
+usb-midi
+wasm
+
+  
+  ```
+
+- Flashez votre programme TinyGo sur la carte en utilisant cette commande :
+
+``
+tinygo flash -target=wioterminal -port /dev/ttyACM0 [le chemin de votre programme]
+```
 
 
