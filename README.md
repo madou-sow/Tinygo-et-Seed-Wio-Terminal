@@ -46,7 +46,7 @@ l'ordinateur d'effectuer une opération.
 - Branchez votre Wio Terminal sur le port USB de votre ordinateur.
 - les différents exemples préinstallés avec le package tinygo_0.26.0_amd64.deb
 
-  ```
+```
 mamadou@dugny:/usr/local/lib/tinygo/src/examples$ ls -1
 adc
 blinkm
@@ -76,9 +76,7 @@ test
 uart
 usb-midi
 wasm
-
-  
-  ```
+```
 
 - Flashez votre programme TinyGo sur la carte en utilisant cette commande :
 
