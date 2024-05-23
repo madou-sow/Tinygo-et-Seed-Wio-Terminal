@@ -183,4 +183,63 @@ mamadou@dugny:~$ tinygo flash -target wioterminal -port /dev/ttyACM0
 /usr/local/lib/tinygo/src/examples/echo/echo.go
 
 ``` 
+- La carte Wio Terminal devrait redémarrer puis commencer à exécuter votre programme
 
+### Exemples de programmes en TinyGo compilés (flash) sur la borne WIO T
+#### Test avec le programme blinkblue.go avec le MCU arduino
+
+```
+1. Liste des modèles de microcontrôleurs arduino installés par tinygo
+
+mamadou@dugny:/usr/local/lib/tinygo/targets$ ls -1 arduino*
+arduino-mega1280.json
+arduino-mega2560.json
+arduino-mkr1000.json
+arduino-mkrwifi1010.json
+arduino-nano-new.json
+arduino-nano.json
+arduino-nano33.json
+arduino-zero.json
+arduino.json
+
+2. Le programme blinkblue.go
+
+mamadou@dugny:~/big-data/cerin10102022/apprentissage/tinygo$ cat blinkblue/blinkblue.go
+package main
+import (
+"machine"
+"time"
+)
+
+func main() {
+                // On board LED is connected to GPIO 2
+                //var led machine.Pin= machine.Pin(13)
+                var led machine.Pin= machine.Pin(2)
+                // Configure PIN as output
+                led.Configure(machine.PinConfig{Mode: machine.PinOutput})
+}
+// Infinite main loop
+for {
+                // Turn LED off
+                led.Low()
+                // Wait for 1 second
+                time.Sleep(time.Millisecond * 1000)
+                // Turn LED on
+                led.High()
+                // Wait for 1 second
+                time.Sleep(time.Millisecond * 1000)
+}
+
+3. Compilation
+
+mamadou@dugny:~/big-data/cerin10102022/apprentissage/tinygo$ tinygo flash -
+target arduino -port /dev/ttyACM0 blinkblue/blinkblue.go
+avrdude: stk500_recv(): programmer is not responding
+avrdude: stk500_getsync() attempt 1 of 10: not in sync: resp=0x00
+avrdude: stk500_getsync() attempt 1 of 10: not in sync: resp=0x00
+avrdude: stk500_recv(): programmer is not responding
+avrdude: stk500_getsync() attempt 2 of 10: not in sync: resp=0x00
+avrdude: stk500_recv(): programmer is not responding
+avrdude: stk500_getsync() attempt 3 of 10: not in sync: resp=0x00
+
+```
