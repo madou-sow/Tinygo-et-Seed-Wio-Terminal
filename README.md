@@ -397,8 +397,9 @@ tinygo flash -target wioterminal -size short /tempo/tinygo-examples-wiot/wioterm
 ```
 <img alt="WIOT" src="https://github.com/madou-sow/Tinygo-et-Seed-Wio-Terminal/blob/main/images/sample-tinygoflash.jpg" width=50% height=50%  title="WIOT"/>
 
-```
+``` 
 main.go
+
 package main
 import (
 "fmt" "image/color" "machine" "time"
@@ -418,10 +419,10 @@ var ()
 func init() { }
 func main() {
 machine.SPI3.Configure(machine.SPIConfig{
-SCK: machine.LCD_SCK_PIN,
-SDO: machine.LCD_SDO_PIN,
-SDI: machine.LCD_SDI_PIN,
-Frequency: 48000000,
+                SCK: machine.LCD_SCK_PIN,
+                SDO: machine.LCD_SDO_PIN,
+                SDI: machine.LCD_SDI_PIN,
+                Frequency: 48000000,
 })
 machine.InitADC()
 backlight := machine.LCD_BACKLIGHT
@@ -433,7 +434,7 @@ machine.LCD_SS_PIN,
 machine.LCD_RESET,
 )
 display.Configure(ili9341.Config{
-Rotation: ili9341.Rotation270,
+                        Rotation: ili9341.Rotation270,
 })
 display.FillScreen(black)
 backlight.High()
@@ -605,3 +606,4 @@ Microphone
 machine.WIO_MIC
 
 ```
+
