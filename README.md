@@ -391,11 +391,13 @@ Cet exemple montre ce qui suit, reçu via le canal. TinyGo utilise goroutine/can
 processus asynchrone.
 
 #### Test avec le programme sample sur la borne Wio T
-``
+
+``` 
 mamadou@port-lipn12:~$ cd /tempo/tinygo-examples-wiot
 tinygo flash -target wioterminal -size short /tempo/tinygo-examples-wiot/wioterminal/sample
 ```
-<img alt="WIOT" src="https://github.com/madou-sow/Tinygo-et-Seed-Wio-Terminal/blob/main/images/sample-tinygoflash.jpg" width=50% height=50%  title="WIOT"/>
+
+<img alt="WIOT sample" src="https://github.com/madou-sow/Tinygo-et-Seed-Wio-Terminal/blob/main/images/sample-tinygoflash.jpg" width=50% height=50%  title="WIOT"/>
 
 ``` 
 main.go
