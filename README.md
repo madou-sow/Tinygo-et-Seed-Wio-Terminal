@@ -1,9 +1,9 @@
-### Tinygo et Seed Wio Terminal
+## Tinygo et Seed Wio Terminal
 Le terminal Seeed Wio est une petite carte de développement ARM basée sur la famille de SoC
 Atmel ATSAMD51P20
 
-#### Flashing
-##### UF2
+### Flashing
+#### UF2
 Le terminal Wio est livré avec le bootloader UF2 déjà installé, Format de flash USB (UF2). UF2 est
 un format de fichier, développé par Microsoft pour PXT (également connu sous le nom de
 Microsoft MakeCode), qui est particulièrement adapté pour flasher les microcontrôleurs sur MSC
@@ -15,7 +15,7 @@ autres. Chaque bloc de 512 octets se compose de (voir ci-dessous pour plus de d�
 
 - adresse où les données doivent être flashées
 
-- bjusqu'à 476 octets de données
+- jusqu'à 476 octets de données
 
 Les transferts de données via MSC arrivent toujours par multiples de 512 octets. Avec la structure
 du système de fichiers FAT, cela signifie que les blocs du fichier UF2 sont toujours alignés avec les
@@ -36,3 +36,13 @@ généralement générés à partir de Microsoft MakeCode et en particulier de M
 L'image a été testée sur un Raspberry Pi Zero Rev 1.3 et Zero W Rev 1.3. Il pourrait théoriquement
 fonctionner sur le Pi A/A+ d'origine, mais n'a pas été testé. D'autres modèles n'ont pas la broche
 d'identification OTG et ne peuvent donc pas être utilisés en mode périphérique USB.
+
+### CLI (Command-Line Interface) ClignotantUne interface en ligne de commande ou ILC (traduction de CLI) est une interface homme-machine
+dans laquelle la communication entre l'utilisateur et l'ordinateur s'effectue en mode texte :
+l'utilisateur tape une ligne de commande, c'est-à-dire du texte au clavier pour demander à
+l'ordinateur d'effectuer une opération.
+
+- Branchez votre Wio Terminal sur le port USB de votre ordinateur.
+- les différents exemples préinstallés avec le package tinygo_0.26.0_amd64.deb
+
+
