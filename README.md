@@ -255,3 +255,134 @@ mamadou@dugny:~/big-data/cerin10102022/apprentissage/tinygo$ tinygo flash -
 target wioterminal -port /dev/ttyACM0 blinkblue/blinkblue.go
 La compilation se déroule correctement
 ```
+
+#### Test avec le programme gorotines sur la borne Wio T
+```
+Téléchargez à partir https://github.com/sago35/tinygo-examples.git
+
+mamadou@dugny:/tempo$ cd tinygo-examples-wiot/
+mamadou@dugny:/tempo/tinygo-examples-wiot$ ls -l
+total 48
+-rw-r--r-- 1 mamadou users 1043 Jan 5 15:22 LICENSE.txt
+-rw-r--r-- 1 mamadou users 1838 Jan 5 15:22 Makefile
+-rw-r--r-- 1 mamadou users 2385 Jan 5 15:22 README.md
+drwxr-xr-x 2 mamadou users 4096 Jan 5 15:22 deviceid
+-rw-r--r-- 1 mamadou users
+209 Jan 5 15:22 go.mod
+-rw-r--r-- 1 mamadou users 12633 Jan 5 15:22 go.sum
+drwxr-xr-x 3 mamadou users 4096 Jan 5 15:22 pininterrupt
+drwxr-xr-x 15 mamadou users 4096 Jan 5 15:22 wioterminal
+drwxr-xr-x 5 mamadou users 4096 Jan 5 15:22 xiao-ble
+
+mamadou@dugny:/tempo/tinygo-examples-wiot$ make
+tinygo build -o /tmp/test.hex -size short -target pyportal ./pininterrupt
+code data bss | flash ram
+.
+.
+.
+tinygo build -o /tmp/test.hex -size short -target pyportal ./pininterrupt
+go: downloading golang.org/x/sys v0.0.0-20220829200755-d48e67d00261
+tinygo build -o /tmp/test.hex -size short -target wioterminal ./wioterminal/goroutines
+.
+.
+.
+
+go: downloading tinygo.org/x/tinyfont v0.3.1-0.20220718115734-9b135c3a5561
+go: downloading github.com/muka/go-bluetooth v0.0.0-20220830075246-0746e3a1ea53
+go: downloading github.com/godbus/dbus/v5 v5.0.3
+go: downloading github.com/sirupsen/logrus v1.9.0
+go: downloading github.com/fatih/structs v1.1.0
+tinygo build -o /tmp/test.hex --target xiao-ble --size short ./xiao-ble/ble-led-client
+
+```
+```
+$cat main.go
+
+package main
+import (
+"fmt"
+"image/color"
+"machine"
+"time"
+"tinygo.org/x/drivers/ili9341"
+)
+var (
+led1 = machine.LED
+display *ili9341.Device
+)
+var (
+black = color.RGBA{0, 0, 0, 255}
+gray = color.RGBA{32, 32, 32, 255}
+white = color.RGBA{255, 255, 255, 255}
+red = color.RGBA{255, 0, 0, 255}
+blue = color.RGBA{0, 0, 255, 255}
+green = color.RGBA{0, 255, 0, 255} )
+
+func initialize() error {
+machine.SPI3.Configure(machine.SPIConfig{
+SCK: machine.LCD_SCK_PIN,
+SDO: machine.LCD_SDO_PIN,
+SDI: machine.LCD_SDI_PIN,
+Frequency: 48000000,
+})
+backlight := machine.LCD_BACKLIGHT
+backlight.Configure(machine.PinConfig{Mode: machine.PinOutput})
+display = ili9341.NewSPI(
+machine.SPI3, machine.LCD_DC,
+machine.LCD_SS_PIN,
+machine.LCD_RESET,
+)
+display.Configure(ili9341.Config{
+Rotation: ili9341.Rotation270,
+})
+display.FillScreen(black)
+backlight.High()
+return nil
+}
+func errDisp(err error) {
+for {
+fmt.Printf("%s\r\n", err.Error())
+time.Sleep(10 * time.Second)
+}
+}
+func main() {
+err := initialize()
+if err != nil {
+errDisp(err)
+}
+label1 := NewLabel(240, 0x12)
+label2 := NewLabel(240, 0x12)
+chCnt1 := make(chan uint32, 1)
+chCnt2 := make(chan uint32, 1)
+go timer77ms(chCnt1)
+go timer500ms(chCnt2)
+for {
+select {
+case cnt := <-chCnt1:
+label1.SetText(fmt.Sprintf("timer77ms : %04X", cnt), white)
+display.DrawRGBBitmap(0, 30, label1.buf, label1.w, label1.h)
+case cnt := <-chCnt2:
+label2.SetText(fmt.Sprintf("timer500ms: %04X", cnt), white)
+display.DrawRGBBitmap(0, 50, label2.buf, label2.w, label2.h) }
+time.Sleep(1 * time.Millisecond)
+}
+}
+func timer77ms(ch chan<- uint32) {
+cnt := uint32(0
+for {
+ch <- cnt
+cnt++
+time.Sleep(77 * time.Millisecond)
+}
+}
+func timer500ms(ch chan<- uint32) {
+cnt := uint32(0)
+for {
+ch <- cnt cnt++
+time.Sleep(500 * time.Millisecond)
+}
+}
+
+```
+Cet exemple montre ce qui suit, reçu via le canal. TinyGo utilise goroutine/canal pour simplifier le
+processus asynchrone.
