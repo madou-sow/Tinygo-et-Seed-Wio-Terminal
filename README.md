@@ -384,5 +384,10 @@ time.Sleep(500 * time.Millisecond)
 }
 
 ```
+https://github.com/madou-sow/Tinygo-et-Seed-Wio-Terminal/blob/main/images/goroutine-tinygoflash.jpg
+
+
 Cet exemple montre ce qui suit, reçu via le canal. TinyGo utilise goroutine/canal pour simplifier le
 processus asynchrone.
+
+https://github.com/madou-sow/Tinygo-et-Seed-Wio-Terminal/blob/main/images/sample-tinygoflash.jpg
